@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programas Académicos — CTE Chile</title>
+  <meta name="description" content="Conoce la oferta académica de CTE Chile: licenciaturas, bachillerato, diplomados y formación continua en teología evangélica.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .prog-detail {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 32px;
+      transition: var(--transition);
+    }
+    .prog-detail:hover { box-shadow: var(--shadow); }
+    .prog-detail-header {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 20px;
+      padding: 28px 32px;
+      cursor: pointer;
+      border-bottom: 1px solid transparent;
+      transition: var(--transition);
+    }
+    .prog-detail.open .prog-detail-header {
+      border-bottom-color: var(--gray-200);
+      background: var(--gray-100);
+    }
+    .prog-detail-header h3 { font-size: 1.05rem; margin: 0; }
+    .prog-detail-header p { font-size: .82rem; color: var(--gray-500); margin: 4px 0 0; }
+    .prog-chevron {
+      width: 32px;
+      height: 32px;
+      background: var(--gray-100);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      transition: var(--transition);
+    }
+    .prog-detail.open .prog-chevron { transform: rotate(180deg); background: var(--primary); color: var(--white); }
+    .prog-detail-body {
+      display: none;
+      padding: 28px 32px;
+    }
+    .prog-detail.open .prog-detail-body { display: block; }
+    .prog-info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .prog-info-item {
+      background: var(--gray-100);
+      padding: 16px 18px;
+      border-radius: var(--radius);
+    }
+    .prog-info-item span:first-child {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--gray-500);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .prog-info-item span:last-child {
+      font-weight: 600;
+      color: var(--dark);
+      font-size: .9rem;
+    }
+    .prog-detail-body p { color: var(--gray-700); font-size: .92rem; }
+    .prog-subjects {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .prog-subject {
+      background: rgba(54,52,142,.07);
+      color: var(--primary);
+      font-size: .78rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 99px;
+    }
+    .category-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      margin-top: 48px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--gray-200);
+    }
+    .category-title:first-of-type { margin-top: 0; }
+    .category-title h2 { font-size: 1.3rem; margin: 0; }
+    .category-dot {
+      width: 12px;
+      height: 12px;
+      background: var(--primary);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="navbar-inner">
+        <a href="index.html" class="logo">
+          <img src="https://ctedechile.cl/wp-content/uploads/2025/12/LOGO-CTE-HD-02.png" alt="CTE Chile" class="logo-img">
+        </a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="programas.html" class="active">Ed. Regular</a></li>
+          <li><a href="continua.html">Ed. Continua</a></li>
+          <li><a href="docentes.html">Cuerpo Docente</a></li>
+          <li><a href="horarios.html">Horarios</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+          <li><a href="#" class="nav-cta"><i class="fas fa-graduation-cap"></i> Aula Virtual</a></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Inicio</a>
+        <span>/</span>
+        <span>Programas</span>
+      </div>
+      <h1>Oferta Académica</h1>
+      <p>Desde estudios introductorios hasta licenciaturas con certificación universitaria. Encuentra el programa para tu vocación.</p>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section class="section">
+    <div class="container">
+
+      <!-- EDUCACIÓN REGULAR -->
+      <div class="category-title">
+        <div class="category-dot"></div>
+        <h2>Educación Regular</h2>
+      </div>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:36px">
+        <p style="color:var(--gray-500);max-width:620px;margin:0">Itinerario formativo progresivo que va desde los diplomas introductorios hasta la licenciatura con reconocimiento universitario. Cada nivel es requisito para el siguiente.</p>
+        <div style="background:var(--gray-100);border-radius:var(--radius-lg);padding:20px 24px;display:flex;align-items:center;gap:14px;flex-shrink:0;border:1px solid var(--gray-200)">
+          <div style="width:44px;height:44px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--white);flex-shrink:0"><i class="fas fa-user"></i></div>
+          <div>
+            <p style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-500);margin:0">Responsable</p>
+            <p style="font-weight:700;color:var(--dark);margin:0;font-size:.95rem">Carlos Caamaño Espinoza</p>
+            <p style="font-size:.8rem;color:var(--gray-500);margin:0">Decano Educación Regular</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Diplomado en Biblia -->
+      <div class="prog-detail open">
+        <div class="prog-detail-header" onclick="toggleProg(this)">
+          <div class="program-icon" style="margin:0">📖</div>
+          <div>
+            <span class="program-badge">Primer año</span>
+            <h3>Diplomado en Biblia</h3>
+            <p>Introducción académica al estudio de las Escrituras</p>
+          </div>
+          <div class="prog-chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="prog-detail-body">
+          <div class="prog-info-grid">
+            <div class="prog-info-item"><span>Año</span><span>Primer año</span></div>
+            <div class="prog-info-item"><span>Duración</span><span>2 semestres</span></div>
+            <div class="prog-info-item"><span>Modalidad</span><span>Online vía Zoom</span></div>
+          </div>
+          <p>Punto de partida del itinerario formativo de la CTE. Introduce al estudiante en el estudio académico de las Escrituras, abordando el Antiguo y Nuevo Testamento desde una perspectiva crítica y de fe.</p>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px">
+            <div>
+              <p style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--primary);margin-bottom:10px">1º Semestre</p>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:6px">
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Contexto Literario del A.T.</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Historia de la Iglesia I: De los Apóstoles a Constantino</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Hermenéutica Bíblica I</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Historia de Israel I</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Metodología del Estudio Bíblico</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Comunicaciones (Redacción)</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Griego I</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Hebreo I</li>
+              </ul>
+            </div>
+            <div>
+              <p style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--primary);margin-bottom:10px">2º Semestre</p>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:6px">
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Contexto Literario del N.T.</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Historia de la Iglesia II: De Constantino a la Edad Media</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Introducción a la Teología Sistemática</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Historia de Israel II</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Palestina en Tiempos de Jesús y Contexto Histórico</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Introducción a la Teología Práctica</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Griego II</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Hebreo II</li>
+              </ul>
+            </div>
+          </div>
+          <a href="contacto.html" class="btn btn-ghost" style="margin-top:24px">Consultar inscripción <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Diplomado en Teología -->
+      <div class="prog-detail">
+        <div class="prog-detail-header" onclick="toggleProg(this)">
+          <div class="program-icon" style="margin:0">✝</div>
+          <div>
+            <span class="program-badge">Segundo año</span>
+            <h3>Diplomado en Teología</h3>
+            <p>Formación teológica fundamental: doctrina, historia y fe contemporánea</p>
+          </div>
+          <div class="prog-chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="prog-detail-body">
+          <div class="prog-info-grid">
+            <div class="prog-info-item"><span>Año</span><span>Segundo año</span></div>
+            <div class="prog-info-item"><span>Duración</span><span>2 semestres</span></div>
+            <div class="prog-info-item"><span>Modalidad</span><span>Online vía Zoom</span></div>
+          </div>
+          <p>Segundo paso del itinerario regular. Aborda los grandes temas de la teología cristiana: doctrina de Dios, cristología, eclesiología, escatología y la relación entre fe y sociedad contemporánea.</p>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px">
+            <div>
+              <p style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--primary);margin-bottom:10px">3º Semestre</p>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:6px">
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Introducción a la Sociología</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Historia de la Iglesia III: Pre-Reformadores</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Teología Sistemática I</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Introducción a la Psicología</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Introducción a la Filosofía</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Teología Pastoral</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Griego III</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Hebreo III</li>
+              </ul>
+            </div>
+            <div>
+              <p style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--primary);margin-bottom:10px">4º Semestre</p>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:6px">
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Antiguo Testamento I</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Historia de la Iglesia IV: Reformadores</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Teología Sistemática II</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Nuevo Testamento I</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Ética Cristiana</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">—</span> Educación Cristiana</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Griego IV</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Hebreo IV</li>
+              </ul>
+            </div>
+          </div>
+          <a href="contacto.html" class="btn btn-ghost" style="margin-top:24px">Consultar inscripción <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Bachillerato Ministerial -->
+      <div class="prog-detail">
+        <div class="prog-detail-header" onclick="toggleProg(this)">
+          <div class="program-icon" style="margin:0">🏛️</div>
+          <div>
+            <span class="program-badge">Bachillerato</span>
+            <h3>Bachillerato Ministerial</h3>
+            <p>Programa sin lenguas bíblicas · orientado al ministerio pastoral</p>
+          </div>
+          <div class="prog-chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="prog-detail-body">
+          <div class="prog-info-grid">
+            <div class="prog-info-item"><span>Año</span><span>Tercer año</span></div>
+            <div class="prog-info-item"><span>Duración</span><span>2 semestres</span></div>
+            <div class="prog-info-item"><span>Modalidad</span><span>Online vía Zoom</span></div>
+          </div>
+          <p>Programa orientado al ejercicio del ministerio pastoral y el liderazgo congregacional. No incluye lenguas bíblicas, por lo que es accesible para quienes priorizan la formación práctica y pastoral sobre la investigación académica.</p>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px">
+            <div>
+              <p style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--primary);margin-bottom:10px">5º Semestre</p>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:6px">
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Antiguo Testamento II</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Historia de la Iglesia V: La Iglesia en el Siglo XX</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Teología Sistemática III</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Nuevo Testamento II</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Antropología Cristiana</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Metodología de la Investigación Científica</li>
+              </ul>
+            </div>
+            <div>
+              <p style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--primary);margin-bottom:10px">6º Semestre</p>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:6px">
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Antiguo Testamento III</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Historia de la Iglesia VI: La Iglesia en Chile</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Seminario Historia y Realidad Latinoamericana</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Nuevo Testamento III</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Corrientes Teológicas Cristianas</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Liturgia y Predicación</li>
+              </ul>
+            </div>
+          </div>
+          <p style="font-size:.82rem;color:var(--gray-500);margin-top:16px;padding:12px 16px;background:var(--gray-100);border-radius:var(--radius);border-left:3px solid var(--accent)">
+            <i class="fas fa-info-circle" style="color:var(--primary);margin-right:6px"></i>
+            Este programa no incluye Griego ni Hebreo. Para la versión con lenguas bíblicas, ver Bachillerato en Teología.
+          </p>
+          <a href="contacto.html" class="btn btn-ghost" style="margin-top:24px">Consultar inscripción <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Bachillerato en Teología -->
+      <div class="prog-detail">
+        <div class="prog-detail-header" onclick="toggleProg(this)">
+          <div class="program-icon" style="margin:0">📜</div>
+          <div>
+            <span class="program-badge">Bachillerato</span>
+            <h3>Bachillerato en Teología</h3>
+            <p>Programa con lenguas bíblicas · formación académica rigurosa</p>
+          </div>
+          <div class="prog-chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="prog-detail-body">
+          <div class="prog-info-grid">
+            <div class="prog-info-item"><span>Año</span><span>Tercer año</span></div>
+            <div class="prog-info-item"><span>Duración</span><span>2 semestres</span></div>
+            <div class="prog-info-item"><span>Modalidad</span><span>Online vía Zoom</span></div>
+          </div>
+          <p>Programa con énfasis en el acceso a las fuentes bíblicas en sus idiomas originales. Incluye griego bíblico (koiné) y hebreo bíblico, preparando al estudiante para la investigación teológica y el acceso directo a los textos sagrados.</p>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px">
+            <div>
+              <p style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--primary);margin-bottom:10px">5º Semestre</p>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:6px">
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Antiguo Testamento II</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Historia de la Iglesia V: La Iglesia en el Siglo XX</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Teología Sistemática III</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Nuevo Testamento II</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Antropología Cristiana</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Metodología de la Investigación Científica</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Griego V</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Hebreo V</li>
+              </ul>
+            </div>
+            <div>
+              <p style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--primary);margin-bottom:10px">6º Semestre</p>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:6px">
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Antiguo Testamento III</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Historia de la Iglesia VI: La Iglesia en Chile</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Seminario Historia y Realidad Latinoamericana</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Nuevo Testamento III</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Corrientes Teológicas Cristianas</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Liturgia y Predicación</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Griego VI</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Hebreo VI</li>
+              </ul>
+            </div>
+          </div>
+          <a href="contacto.html" class="btn btn-ghost" style="margin-top:24px">Consultar inscripción <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Bachillerato Superior -->
+      <div class="prog-detail">
+        <div class="prog-detail-header" onclick="toggleProg(this)">
+          <div class="program-icon" style="margin:0">🔬</div>
+          <div>
+            <span class="program-badge">Cuarto año</span>
+            <h3>Bachillerato Superior</h3>
+            <p>Profundización académica e investigación teológica</p>
+          </div>
+          <div class="prog-chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="prog-detail-body">
+          <div class="prog-info-grid">
+            <div class="prog-info-item"><span>Año</span><span>Cuarto año</span></div>
+            <div class="prog-info-item"><span>Duración</span><span>2 semestres</span></div>
+            <div class="prog-info-item"><span>Modalidad</span><span>Online vía Zoom</span></div>
+          </div>
+          <p>Nivel avanzado del itinerario regular, con énfasis en investigación teológica, especialización temática y preparación para el nivel de licenciatura. Requiere haber completado el Bachillerato en Teología.</p>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px">
+            <div>
+              <p style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--primary);margin-bottom:10px">7º Semestre</p>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:6px">
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Filosofía de la Religión</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Teología del A.T.</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Exégesis y Hermenéutica del A.T.</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Teología y Medio Ambiente</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Religiones Comparadas y Diálogo Interreligioso</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Griego VII</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Hebreo VII</li>
+              </ul>
+            </div>
+            <div>
+              <p style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--primary);margin-bottom:10px">8º Semestre</p>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:6px">
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Género y Teología (Hermenéutica Feminista)</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Teología del N.T.</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Exégesis y Hermenéutica del N.T.</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Seminario de Fe y Razón e Ideología y Fenomenología de la Religión</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Teologías Contemporáneas</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Griego VIII</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">2C</span> Hebreo VIII</li>
+              </ul>
+            </div>
+          </div>
+          <a href="contacto.html" class="btn btn-ghost" style="margin-top:24px">Consultar inscripción <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Licenciatura en Teología -->
+      <div class="prog-detail">
+        <div class="prog-detail-header" onclick="toggleProg(this)">
+          <div class="program-icon" style="margin:0">🎓</div>
+          <div>
+            <span class="program-badge">Licenciatura · PUCV</span>
+            <h3>Licenciatura en Teología</h3>
+            <p>Con reconocimiento universitario de la Pontificia Universidad Católica de Valparaíso</p>
+          </div>
+          <div class="prog-chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="prog-detail-body">
+          <div class="prog-info-grid">
+            <div class="prog-info-item"><span>Nivel</span><span>Licenciatura</span></div>
+            <div class="prog-info-item"><span>Reconocimiento</span><span>PUCV</span></div>
+            <div class="prog-info-item"><span>Modalidad</span><span>Online vía Zoom</span></div>
+          </div>
+          <p>El grado más alto del itinerario regular de la CTE Chile. Otorga reconocimiento universitario secular a través de la alianza con la Pontificia Universidad Católica de Valparaíso (PUCV). Forma teólogos con capacidad de investigación académica, diálogo ecuménico e impacto social.</p>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px">
+            <div>
+              <p style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--primary);margin-bottom:10px">9º Semestre</p>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:6px">
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">3C</span> Lenguaje y Religión</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">8C</span> Seminario de Tesis I</li>
+              </ul>
+            </div>
+            <div>
+              <p style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--primary);margin-bottom:10px">10º Semestre</p>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:6px">
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">4C</span> Diálogo Ecuménico</li>
+                <li style="font-size:.83rem;display:flex;align-items:baseline;gap:8px"><span style="color:var(--secondary-dark);font-weight:700;flex-shrink:0">8C</span> Seminario de Tesis II</li>
+              </ul>
+            </div>
+          </div>
+          <p style="font-size:.82rem;color:var(--gray-500);margin-top:16px;padding:12px 16px;background:var(--gray-100);border-radius:var(--radius);border-left:3px solid var(--accent)">
+            <i class="fas fa-info-circle" style="color:var(--primary);margin-right:6px"></i>
+            Esta Licenciatura está condicionada a un mínimo de alumnos. También es posible obtener la Licenciatura solo con la CTE, sin certificación universitaria, con valores diferentes.
+          </p>
+          <a href="contacto.html" class="btn btn-ghost" style="margin-top:24px">Consultar inscripción <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Referencia a Ed. Continua -->
+      <div style="background:var(--gray-100);border-radius:var(--radius-lg);padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:48px;border:1px solid var(--gray-200)">
+        <div>
+          <span class="section-label">¿Buscas algo más flexible?</span>
+          <h3 style="margin:6px 0 4px">Educación Continua</h3>
+          <p style="color:var(--gray-500);font-size:.87rem;margin:0">Talleres, diplomas breves y convenios para iglesias y comunidades. Sin requisitos de ingreso al itinerario regular.</p>
+        </div>
+        <a href="continua.html" class="btn btn-ghost" style="white-space:nowrap;flex-shrink:0">Ver oferta continua <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT CTA -->
+  <section class="contact-cta">
+    <div class="container">
+      <div class="contact-cta-inner">
+        <div>
+          <h2>¿No sabes cuál programa es para ti?</h2>
+          <p>Escríbenos y te orientamos según tu vocación, disponibilidad y nivel de formación previo.</p>
+        </div>
+        <a href="contacto.html" class="btn btn-primary">
+          <i class="fas fa-paper-plane"></i> Consultar
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo logo">
+            <img src="https://ctedechile.cl/wp-content/uploads/2025/12/LOGO-CTE-HD-02.png" alt="CTE Chile" class="logo-img">
+          </div>
+          <p class="footer-desc">Institución cristiana de Educación Superior comprometida con la formación integral de líderes teológicos desde hace más de seis décadas.</p>
+          <div class="footer-socials">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4>Navegación</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="nosotros.html">Nosotros</a></li>
+            <li><a href="programas.html">Programas</a></li>
+            <li><a href="horarios.html">Horarios</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Programas</h4>
+          <ul class="footer-links">
+            <li><a href="programas.html">Lic. en Teología</a></li>
+            <li><a href="programas.html">Bachillerato</a></li>
+            <li><a href="programas.html">Diploma Teológico</a></li>
+            <li><a href="programas.html">Estudios Bíblicos</a></li>
+            <li><a href="programas.html">Formación Continua</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contacto</h4>
+          <ul class="footer-contact">
+            <li><i class="fas fa-map-marker-alt"></i> Domeyko 1938 – 3º piso, Santiago</li>
+            <li><i class="fas fa-phone"></i> +56 9 9187 7514</li>
+            <li><i class="fas fa-envelope"></i> ctesantiago@ctedechile.cl</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Comunidad Teológica Evangélica de Chile. Todos los derechos reservados.</span>
+        <span>Propuesta de diseño alternativa</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    function toggleProg(header) {
+      const card = header.closest('.prog-detail');
+      card.classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

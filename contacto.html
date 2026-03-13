@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto — CTE Chile</title>
+  <meta name="description" content="Contáctanos para consultar sobre programas, inscripciones y actividades de la Comunidad Teológica Evangélica de Chile.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="navbar-inner">
+        <a href="index.html" class="logo">
+          <img src="https://ctedechile.cl/wp-content/uploads/2025/12/LOGO-CTE-HD-02.png" alt="CTE Chile" class="logo-img">
+        </a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="programas.html">Ed. Regular</a></li>
+          <li><a href="continua.html">Ed. Continua</a></li>
+          <li><a href="docentes.html">Cuerpo Docente</a></li>
+          <li><a href="contacto.html" class="active">Contacto</a></li>
+          <li><a href="#" class="nav-cta"><i class="fas fa-graduation-cap"></i> Aula Virtual</a></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Inicio</a>
+        <span>/</span>
+        <span>Contacto</span>
+      </div>
+      <h1>Contáctanos</h1>
+      <p>Estamos para orientarte en tu proceso de formación. Escríbenos y te respondemos a la brevedad.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+
+        <!-- Info -->
+        <div>
+          <span class="section-label">Información de contacto</span>
+          <h2 style="margin-top:8px;margin-bottom:24px">Estamos en Santiago,<br>al servicio de todo Chile</h2>
+          <p style="color:var(--gray-500);margin-bottom:36px">Puedes escribirnos para consultar sobre inscripciones, programas, malla curricular, aranceles o cualquier otra información institucional.</p>
+
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="contact-info-text">
+              <h4>Dirección</h4>
+              <p>Domeyko 1938 – 3º piso<br>Santiago, Chile</p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fas fa-phone"></i></div>
+            <div class="contact-info-text">
+              <h4>Teléfono</h4>
+              <p>+56 9 9187 7514</p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fas fa-envelope"></i></div>
+            <div class="contact-info-text">
+              <h4>Correo electrónico</h4>
+              <p>ctesantiago@ctedechile.cl</p>
+            </div>
+          </div>
+
+          <div style="margin-top:36px;padding-top:32px;border-top:1px solid var(--gray-200)">
+            <h4 style="font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-500);margin-bottom:12px">Síguenos en redes</h4>
+            <div class="footer-socials" style="margin:0">
+              <a href="#" aria-label="Facebook" style="background:var(--gray-100);color:var(--primary)"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" aria-label="Instagram" style="background:var(--gray-100);color:var(--primary)"><i class="fab fa-instagram"></i></a>
+              <a href="#" aria-label="YouTube" style="background:var(--gray-100);color:var(--primary)"><i class="fab fa-youtube"></i></a>
+              <a href="#" aria-label="Twitter/X" style="background:var(--gray-100);color:var(--primary)"><i class="fab fa-x-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="form-card">
+          <h3 style="margin-bottom:6px">Envíanos un mensaje</h3>
+          <p style="color:var(--gray-500);font-size:.88rem;margin-bottom:28px">Completa el formulario y te responderemos dentro de 24–48 horas hábiles.</p>
+
+          <form id="contactForm" novalidate>
+            <!-- Honeypot oculto -->
+            <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="nombre">Nombre <span style="color:red">*</span></label>
+                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required autocomplete="given-name">
+              </div>
+              <div class="form-group">
+                <label for="apellido">Apellido</label>
+                <input type="text" id="apellido" name="apellido" placeholder="Tu apellido" autocomplete="family-name">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Correo electrónico <span style="color:red">*</span></label>
+              <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.cl" required autocomplete="email">
+            </div>
+
+            <div class="form-group">
+              <label for="telefono">Teléfono</label>
+              <input type="tel" id="telefono" name="telefono" placeholder="+56 9 XXXX XXXX" autocomplete="tel">
+            </div>
+
+            <div class="form-group">
+              <label for="programa">Programa de interés</label>
+              <select id="programa" name="programa">
+                <option value="">— Selecciona un programa —</option>
+                <option value="lic_ecumenico">Lic. en Estudios Teológicos, Bíblicos y Diálogo Ecuménico</option>
+                <option value="lic_teologia">Licenciatura en Teología</option>
+                <option value="bachillerato">Bachillerato en Teología</option>
+                <option value="diploma_teo">Diploma en Estudios Teológicos</option>
+                <option value="diploma_bib">Diplomado en Estudios Bíblicos</option>
+                <option value="formacion_continua">Formación Continua / Talleres</option>
+                <option value="otro">Otra consulta</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="mensaje">Mensaje <span style="color:red">*</span></label>
+              <textarea id="mensaje" name="mensaje" placeholder="Escribe tu consulta aquí..." required></textarea>
+            </div>
+
+            <div id="formMsg" style="display:none;padding:12px 16px;border-radius:var(--radius);font-size:.88rem;margin-bottom:16px"></div>
+
+            <button type="submit" class="btn btn-primary form-submit">
+              <i class="fas fa-paper-plane"></i> Enviar mensaje
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo logo">
+            <img src="https://ctedechile.cl/wp-content/uploads/2025/12/LOGO-CTE-HD-02.png" alt="CTE Chile" class="logo-img">
+          </div>
+          <p class="footer-desc">Institución cristiana de Educación Superior comprometida con la formación integral de líderes teológicos desde hace más de seis décadas.</p>
+          <div class="footer-socials">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4>Navegación</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="nosotros.html">Nosotros</a></li>
+            <li><a href="programas.html">Programas</a></li>
+            <li><a href="horarios.html">Horarios</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Programas</h4>
+          <ul class="footer-links">
+            <li><a href="programas.html">Lic. en Teología</a></li>
+            <li><a href="programas.html">Bachillerato</a></li>
+            <li><a href="programas.html">Diploma Teológico</a></li>
+            <li><a href="programas.html">Estudios Bíblicos</a></li>
+            <li><a href="programas.html">Formación Continua</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contacto</h4>
+          <ul class="footer-contact">
+            <li><i class="fas fa-map-marker-alt"></i> Domeyko 1938 – 3º piso, Santiago</li>
+            <li><i class="fas fa-phone"></i> +56 9 9187 7514</li>
+            <li><i class="fas fa-envelope"></i> ctesantiago@ctedechile.cl</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Comunidad Teológica Evangélica de Chile. Todos los derechos reservados.</span>
+        <span>Propuesta de diseño alternativa</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

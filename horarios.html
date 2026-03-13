@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horarios — CTE Chile</title>
+  <meta name="description" content="Horarios del Programa de Licenciatura en Teología de la Comunidad Teológica Evangélica de Chile, año 2026.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Tabs de semestre ── */
+    .sem-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .sem-tab {
+      padding: 10px 22px;
+      border-radius: 99px;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: .85rem;
+      border: 2px solid var(--gray-200);
+      background: var(--white);
+      color: var(--gray-500);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .sem-tab:hover { border-color: var(--primary); color: var(--primary); }
+    .sem-tab.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: var(--white);
+    }
+    .sem-panel { display: none; }
+    .sem-panel.active { display: block; }
+
+    /* ── Tabla de horario ── */
+    .schedule-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--gray-200);
+    }
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 700px;
+      background: var(--white);
+    }
+    .schedule-table thead th {
+      background: var(--primary);
+      color: var(--white);
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: .85rem;
+      padding: 14px 16px;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,.15);
+    }
+    .schedule-table thead th:first-child {
+      background: var(--primary-dark);
+      width: 110px;
+    }
+    .schedule-table thead th:last-child { border-right: none; }
+    .schedule-table .time-row td {
+      background: var(--secondary);
+      color: var(--dark);
+      font-weight: 700;
+      font-size: .8rem;
+      text-align: center;
+      padding: 8px 12px;
+      letter-spacing: .04em;
+      border-right: 1px solid rgba(0,0,0,.08);
+    }
+    .schedule-table .time-row td:first-child {
+      background: var(--secondary-dark);
+    }
+    .schedule-table td {
+      padding: 16px 14px;
+      vertical-align: top;
+      border-right: 1px solid var(--gray-200);
+      border-bottom: 1px solid var(--gray-200);
+      text-align: center;
+    }
+    .schedule-table td:last-child { border-right: none; }
+    .schedule-table tbody tr:last-child td { border-bottom: none; }
+    .class-name {
+      font-weight: 700;
+      font-size: .83rem;
+      color: var(--dark);
+      line-height: 1.4;
+      margin-bottom: 4px;
+    }
+    .class-credits {
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--primary);
+      background: rgba(54,52,142,.08);
+      padding: 2px 8px;
+      border-radius: 99px;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+    .class-teacher {
+      font-size: .78rem;
+      color: var(--gray-500);
+      font-style: italic;
+    }
+    .cell-empty {
+      color: var(--gray-200);
+      font-size: 1.2rem;
+    }
+
+    /* ── Leyenda de áreas ── */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    /* Color por área */
+    .area-biblica    { background: rgba(220,38,38,.08); }
+    .area-sistematica { background: rgba(54,52,142,.06); }
+    .area-historia   { background: rgba(22,163,74,.08); }
+    .area-practica   { background: rgba(8,145,178,.08); }
+    .area-filosofia  { background: rgba(124,58,237,.08); }
+    .area-lenguas    { background: rgba(234,88,12,.08); }
+
+    .dot-biblica    { background: #dc2626; }
+    .dot-sistematica { background: var(--primary); }
+    .dot-historia   { background: #16a34a; }
+    .dot-practica   { background: #0891b2; }
+    .dot-filosofia  { background: #7c3aed; }
+    .dot-lenguas    { background: #ea580c; }
+
+    @media (max-width: 600px) {
+      .sem-tab { font-size: .78rem; padding: 8px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="navbar-inner">
+        <a href="index.html" class="logo">
+          <img src="https://ctedechile.cl/wp-content/uploads/2025/12/LOGO-CTE-HD-02.png" alt="CTE Chile" class="logo-img">
+        </a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="programas.html">Ed. Regular</a></li>
+          <li><a href="continua.html">Ed. Continua</a></li>
+          <li><a href="docentes.html">Cuerpo Docente</a></li>
+          <li><a href="horarios.html" class="active">Horarios</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+          <li><a href="#" class="nav-cta"><i class="fas fa-graduation-cap"></i> Aula Virtual</a></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Inicio</a>
+        <span>/</span>
+        <span>Horarios</span>
+      </div>
+      <h1>Horarios 2026</h1>
+      <p>Programa de Licenciatura en Teología — Facultad Evangélica Latinoamericana de Teología. Clases de lunes a viernes, modalidad online.</p>
+    </div>
+  </section>
+
+  <!-- HORARIOS -->
+  <section class="section">
+    <div class="container">
+
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:28px">
+        <div>
+          <span class="section-label">Año 2026</span>
+          <h2 style="margin-top:4px">Selecciona el semestre</h2>
+        </div>
+        <div style="background:var(--gray-100);border-radius:var(--radius);padding:12px 16px;font-size:.83rem;color:var(--gray-500)">
+          <i class="fas fa-clock" style="color:var(--primary);margin-right:6px"></i>
+          Horario general: <strong style="color:var(--dark)">19:00–22:00 hrs.</strong> · Online
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="sem-tabs">
+        <button class="sem-tab active" onclick="switchSem('sem1', this)">1º Semestre · 1er año</button>
+        <button class="sem-tab" onclick="switchSem('sem3', this)">3º Semestre · 2do año</button>
+        <button class="sem-tab" onclick="switchSem('sem5', this)">5º Semestre · 3er año</button>
+        <button class="sem-tab" onclick="switchSem('sem7', this)">7º Semestre · 4to año</button>
+      </div>
+
+      <!-- ══ 1º Semestre ══ -->
+      <div class="sem-panel active" id="sem1">
+        <div class="schedule-wrap">
+          <table class="schedule-table">
+            <thead>
+              <tr>
+                <th>Horario</th>
+                <th>Lunes</th>
+                <th>Martes</th>
+                <th>Miércoles</th>
+                <th>Jueves</th>
+                <th>Viernes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="time-row">
+                <td>19:00–20:20</td>
+                <td>Lunes</td><td>Martes</td><td>Miércoles</td><td>Jueves</td><td>Viernes</td>
+              </tr>
+              <tr>
+                <td style="background:var(--gray-100);font-weight:700;font-size:.78rem;color:var(--gray-500);text-align:center">19:00–20:20</td>
+                <td class="area-biblica">
+                  <div class="class-name">Griego Bíblico I</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Dr. Daniel Godoy</div>
+                </td>
+                <td class="area-biblica">
+                  <div class="class-name">Hermenéutica Bíblica</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Lic. Carlos Caamaño Espinoza</div>
+                </td>
+                <td class="area-historia">
+                  <div class="class-name">Intro. Historia de la Iglesia I: De los Apóstoles a Constantino (s. I–IV)</div>
+                  <span class="class-credits">3C</span>
+                  <div class="class-teacher">Mg. Cecilia Castillo N.</div>
+                </td>
+                <td class="area-practica">
+                  <div class="class-name">Comunicaciones y Redacción</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Dr. Patricio Abarca Castro</div>
+                </td>
+                <td><span class="cell-empty">—</span></td>
+              </tr>
+              <tr class="time-row">
+                <td>20:40–22:00</td>
+                <td>Lunes</td><td>Martes</td><td>Miércoles</td><td>Jueves</td><td>Viernes</td>
+              </tr>
+              <tr>
+                <td style="background:var(--gray-100);font-weight:700;font-size:.78rem;color:var(--gray-500);text-align:center">20:40–22:00</td>
+                <td class="area-biblica">
+                  <div class="class-name">Contexto Literario del Antiguo Testamento</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Dr. Daniel Godoy</div>
+                </td>
+                <td class="area-biblica">
+                  <div class="class-name">Metodología del Estudio Bíblico</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Lic. Carlos Caamaño Espinoza</div>
+                </td>
+                <td class="area-historia">
+                  <div class="class-name">Historia de Israel I</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Mg. Jaime Alarcón</div>
+                </td>
+                <td class="area-lenguas">
+                  <div class="class-name">Hebreo Bíblico I</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Lic. Hemir Ochoa</div>
+                </td>
+                <td><span class="cell-empty">—</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ══ 3º Semestre ══ -->
+      <div class="sem-panel" id="sem3">
+        <div class="schedule-wrap">
+          <table class="schedule-table">
+            <thead>
+              <tr>
+                <th>Horario</th>
+                <th>Lunes</th>
+                <th>Martes</th>
+                <th>Miércoles</th>
+                <th>Jueves</th>
+                <th>Viernes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="background:var(--gray-100);font-weight:700;font-size:.78rem;color:var(--gray-500);text-align:center">19:00–20:20</td>
+                <td class="area-filosofia">
+                  <div class="class-name">Introducción a la Sociología</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Drs. Karina Ojeda</div>
+                </td>
+                <td class="area-practica">
+                  <div class="class-name">Teología Pastoral</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Dra. Gloria Rojas</div>
+                </td>
+                <td class="area-sistematica">
+                  <div class="class-name">Teología Sistemática I</div>
+                  <span class="class-credits">3C</span>
+                  <div class="class-teacher">Dra. Elizabeth Salazar Sanzana</div>
+                </td>
+                <td class="area-biblica">
+                  <div class="class-name">Griego Bíblico III</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Lic. Samuel Restrepo</div>
+                </td>
+                <td><span class="cell-empty">—</span></td>
+              </tr>
+              <tr>
+                <td style="background:var(--gray-100);font-weight:700;font-size:.78rem;color:var(--gray-500);text-align:center">20:40–22:00</td>
+                <td class="area-filosofia">
+                  <div class="class-name">Introducción a la Psicología</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Lic. Marcela Ibacache</div>
+                </td>
+                <td class="area-historia">
+                  <div class="class-name">Historia del Cristianismo III: Pre-Reformadores</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Lic. Carmen Grandón Q.</div>
+                </td>
+                <td class="area-filosofia">
+                  <div class="class-name">Introducción a la Filosofía</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Mg. Germán Quintana</div>
+                </td>
+                <td class="area-lenguas">
+                  <div class="class-name">Hebreo Bíblico III</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Lic. Hemir Ochoa</div>
+                </td>
+                <td><span class="cell-empty">—</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ══ 5º Semestre ══ -->
+      <div class="sem-panel" id="sem5">
+        <div class="schedule-wrap">
+          <table class="schedule-table">
+            <thead>
+              <tr>
+                <th>Horario</th>
+                <th>Lunes</th>
+                <th>Martes</th>
+                <th>Miércoles</th>
+                <th>Jueves</th>
+                <th>Viernes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="background:var(--gray-100);font-weight:700;font-size:.78rem;color:var(--gray-500);text-align:center">19:00–20:20</td>
+                <td class="area-sistematica">
+                  <div class="class-name">Antropología Cristiana</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Dr. Nicolás Panotto</div>
+                </td>
+                <td><span class="cell-empty">—</span></td>
+                <td class="area-biblica">
+                  <div class="class-name">Antiguo Testamento II</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Mg. Jaime Alarcón</div>
+                </td>
+                <td class="area-historia">
+                  <div class="class-name">Historia de la Iglesia V: La Iglesia en el Siglo XX</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Mg. Juan Ortiz R.</div>
+                </td>
+                <td class="area-lenguas">
+                  <div class="class-name">Hebreo Bíblico V</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Lic. Gustavo Robles</div>
+                </td>
+              </tr>
+              <tr>
+                <td style="background:var(--gray-100);font-weight:700;font-size:.78rem;color:var(--gray-500);text-align:center">20:40–22:00</td>
+                <td class="area-practica">
+                  <div class="class-name">Metodología de la Investigación Científica</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Mg. Claudia Mardones</div>
+                </td>
+                <td class="area-sistematica">
+                  <div class="class-name">Teología Sistemática III</div>
+                  <span class="class-credits">3C</span>
+                  <div class="class-teacher">Dra. Elizabeth Salazar</div>
+                </td>
+                <td class="area-biblica">
+                  <div class="class-name">Nuevo Testamento II</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Dr. Javier Ortega</div>
+                </td>
+                <td class="area-biblica">
+                  <div class="class-name">Griego Bíblico V</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Lic. Samuel Restrepo</div>
+                </td>
+                <td><span class="cell-empty">—</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ══ 7º Semestre ══ -->
+      <div class="sem-panel" id="sem7">
+        <div class="schedule-wrap">
+          <table class="schedule-table">
+            <thead>
+              <tr>
+                <th>Horario</th>
+                <th>Lunes</th>
+                <th>Martes</th>
+                <th>Miércoles</th>
+                <th>Jueves</th>
+                <th>Viernes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="background:var(--gray-100);font-weight:700;font-size:.78rem;color:var(--gray-500);text-align:center">19:00–20:20</td>
+                <td class="area-biblica">
+                  <div class="class-name">Teología del Antiguo Testamento</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Mg. Jaime Alarcón Véjar</div>
+                </td>
+                <td class="area-biblica">
+                  <div class="class-name">Exégesis y Hermenéutica del AT</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Mg. Jaime Alarcón</div>
+                </td>
+                <td class="area-practica">
+                  <div class="class-name">Teología y Medio Ambiente</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Mg. Arianne van Andel</div>
+                </td>
+                <td class="area-lenguas">
+                  <div class="class-name">Hebreo Bíblico VII</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Lic. Gustavo Robles</div>
+                </td>
+                <td class="area-biblica">
+                  <div class="class-name">Griego Bíblico VII</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Lic. Samuel Restrepo</div>
+                </td>
+              </tr>
+              <tr>
+                <td style="background:var(--gray-100);font-weight:700;font-size:.78rem;color:var(--gray-500);text-align:center">20:40–22:00</td>
+                <td><span class="cell-empty">—</span></td>
+                <td class="area-filosofia">
+                  <div class="class-name">Filosofía de la Religión</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Mg. Claudio Colombo</div>
+                </td>
+                <td class="area-filosofia">
+                  <div class="class-name">Religiones Comparadas y Diálogo Interreligioso</div>
+                  <span class="class-credits">2C</span>
+                  <div class="class-teacher">Dr. Daniel Godoy F.</div>
+                </td>
+                <td><span class="cell-empty">—</span></td>
+                <td><span class="cell-empty">—</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Leyenda -->
+      <div style="margin-top:28px;padding:20px 24px;background:var(--gray-100);border-radius:var(--radius-lg)">
+        <p style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-500);margin-bottom:12px">Áreas temáticas</p>
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot dot-biblica"></div> Área Bíblica</div>
+          <div class="legend-item"><div class="legend-dot dot-sistematica"></div> Teología Sistemática</div>
+          <div class="legend-item"><div class="legend-dot dot-historia"></div> Historia de la Iglesia</div>
+          <div class="legend-item"><div class="legend-dot dot-practica"></div> Teología Práctica y Correlación</div>
+          <div class="legend-item"><div class="legend-dot dot-filosofia"></div> Filosofía y Ciencias de la Religión</div>
+          <div class="legend-item"><div class="legend-dot dot-lenguas"></div> Lenguas Bíblicas</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT CTA -->
+  <section class="contact-cta">
+    <div class="container">
+      <div class="contact-cta-inner">
+        <div>
+          <h2>¿Tienes preguntas sobre los horarios?</h2>
+          <p>Contáctanos y te entregamos toda la información que necesitas para inscribirte.</p>
+        </div>
+        <a href="contacto.html" class="btn btn-primary">
+          <i class="fas fa-paper-plane"></i> Escríbenos
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo logo">
+            <img src="https://ctedechile.cl/wp-content/uploads/2025/12/LOGO-CTE-HD-02.png" alt="CTE Chile" class="logo-img">
+          </div>
+          <p class="footer-desc">Institución cristiana de Educación Superior comprometida con la formación integral de líderes teológicos desde hace más de seis décadas.</p>
+          <div class="footer-socials">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4>Navegación</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="nosotros.html">Nosotros</a></li>
+            <li><a href="programas.html">Ed. Regular</a></li>
+            <li><a href="continua.html">Ed. Continua</a></li>
+            <li><a href="docentes.html">Cuerpo Docente</a></li>
+            <li><a href="horarios.html">Horarios</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Ed. Regular</h4>
+          <ul class="footer-links">
+            <li><a href="programas.html">Diplomado en Biblia</a></li>
+            <li><a href="programas.html">Diplomado en Teología</a></li>
+            <li><a href="programas.html">Bachillerato Ministerial</a></li>
+            <li><a href="programas.html">Bachillerato en Teología</a></li>
+            <li><a href="programas.html">Licenciatura en Teología</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contacto</h4>
+          <ul class="footer-contact">
+            <li><i class="fas fa-map-marker-alt"></i> Domeyko 1938 – 3º piso, Santiago</li>
+            <li><i class="fas fa-phone"></i> +56 9 9187 7514</li>
+            <li><i class="fas fa-envelope"></i> ctesantiago@ctedechile.cl</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Comunidad Teológica Evangélica de Chile. Todos los derechos reservados.</span>
+        <span>Propuesta de diseño alternativa</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    function switchSem(id, btn) {
+      document.querySelectorAll('.sem-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.sem-tab').forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuerpo Docente — CTE Chile</title>
+  <meta name="description" content="Conoce al cuerpo docente de la Comunidad Teológica Evangélica de Chile: teólogos, biblistas y especialistas al servicio de la formación.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .docentes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .docente-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .docente-card:hover {
+      box-shadow: var(--shadow);
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+    .docente-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      object-position: top;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 3rem;
+    }
+    .docente-img img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+    .docente-body {
+      padding: 20px 22px;
+    }
+    .docente-role {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: rgba(54,52,142,.08);
+      padding: 3px 10px;
+      border-radius: 99px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .docente-body h3 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+    .docente-body p {
+      font-size: .83rem;
+      color: var(--gray-500);
+      margin: 0;
+      line-height: 1.6;
+    }
+    .docente-areas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+    .docente-area {
+      font-size: .72rem;
+      font-weight: 600;
+      color: var(--gray-700);
+      background: var(--gray-100);
+      padding: 3px 10px;
+      border-radius: 99px;
+    }
+    .tab-nav {
+      display: flex;
+      gap: 4px;
+      border-bottom: 2px solid var(--gray-200);
+      margin-bottom: 40px;
+    }
+    .tab-btn {
+      padding: 12px 24px;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: .9rem;
+      color: var(--gray-500);
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: var(--transition);
+    }
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    .tab-btn:hover:not(.active) { color: var(--gray-700); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    @media (max-width: 768px) {
+      .docentes-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .docentes-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="navbar-inner">
+        <a href="index.html" class="logo">
+          <img src="https://ctedechile.cl/wp-content/uploads/2025/12/LOGO-CTE-HD-02.png" alt="CTE Chile" class="logo-img">
+        </a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="programas.html">Ed. Regular</a></li>
+          <li><a href="continua.html">Ed. Continua</a></li>
+          <li><a href="docentes.html" class="active">Cuerpo Docente</a></li>
+          <li><a href="horarios.html">Horarios</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+          <li><a href="#" class="nav-cta"><i class="fas fa-graduation-cap"></i> Aula Virtual</a></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Inicio</a>
+        <span>/</span>
+        <span>Cuerpo Docente</span>
+      </div>
+      <h1>Cuerpo Docente</h1>
+      <p>Teólogos, biblistas y especialistas comprometidos con la excelencia académica y la formación integral.</p>
+    </div>
+  </section>
+
+  <!-- DOCENTES -->
+  <section class="section">
+    <div class="container">
+
+      <!-- Tabs -->
+      <div class="tab-nav">
+        <button class="tab-btn active" onclick="switchTab('autoridades', this)">Autoridades</button>
+        <button class="tab-btn" onclick="switchTab('regular', this)">Educación Regular</button>
+        <button class="tab-btn" onclick="switchTab('continua', this)">Educación Continua</button>
+      </div>
+
+      <!-- Tab: Autoridades -->
+      <div class="tab-panel active" id="tab-autoridades">
+        <div class="section-header">
+          <span class="section-label">Dirección institucional</span>
+          <h2>Quienes lideran la institución</h2>
+          <p>El equipo directivo de la CTE Chile combina trayectoria académica y compromiso pastoral.</p>
+        </div>
+        <div class="docentes-grid">
+
+          <div class="docente-card">
+            <div class="docente-img"><i class="fas fa-user"></i></div>
+            <div class="docente-body">
+              <span class="docente-role">Rector</span>
+              <h3>Dr. Daniel Godoy</h3>
+              <p>Máxima autoridad académica e institucional de la Comunidad Teológica Evangélica de Chile.</p>
+              <div class="docente-areas">
+                <span class="docente-area">Teología Sistemática</span>
+                <span class="docente-area">Dirección Académica</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="docente-card">
+            <div class="docente-img"><i class="fas fa-user"></i></div>
+            <div class="docente-body">
+              <span class="docente-role">Decano</span>
+              <h3>Carlos Caamaño Espinoza</h3>
+              <p>Licenciado en Teología · Profesor de Educación General Básica · Especialista en Nuevo Testamento y Griego Bíblico Koiné.</p>
+              <div class="docente-areas">
+                <span class="docente-area">Nuevo Testamento</span>
+                <span class="docente-area">Griego Bíblico</span>
+                <span class="docente-area">IA en Educación</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="docente-card">
+            <div class="docente-img"><i class="fas fa-user"></i></div>
+            <div class="docente-body">
+              <span class="docente-role">Decana de Educación Continua</span>
+              <h3>Cecilia Castillo Nanjari</h3>
+              <p>Responsable de la oferta de formación continua, talleres, diplomas breves y convenios institucionales.</p>
+              <div class="docente-areas">
+                <span class="docente-area">Educación Continua</span>
+                <span class="docente-area">Formación Pastoral</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Tab: Educación Regular -->
+      <div class="tab-panel" id="tab-regular">
+        <div class="section-header">
+          <span class="section-label">Planta académica</span>
+          <h2>Docentes de Educación Regular</h2>
+          <p>Profesores que imparten los programas del itinerario regular: diplomados, bachilleratos y licenciatura.</p>
+        </div>
+        <div class="docentes-grid">
+
+          <div class="docente-card">
+            <div class="docente-img"><i class="fas fa-user"></i></div>
+            <div class="docente-body">
+              <span class="docente-role">Docente</span>
+              <h3>Por completar</h3>
+              <p>Añadir nombre, grado académico y descripción del docente.</p>
+              <div class="docente-areas">
+                <span class="docente-area">Área de especialidad</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="docente-card">
+            <div class="docente-img"><i class="fas fa-user"></i></div>
+            <div class="docente-body">
+              <span class="docente-role">Docente</span>
+              <h3>Por completar</h3>
+              <p>Añadir nombre, grado académico y descripción del docente.</p>
+              <div class="docente-areas">
+                <span class="docente-area">Área de especialidad</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="docente-card">
+            <div class="docente-img"><i class="fas fa-user"></i></div>
+            <div class="docente-body">
+              <span class="docente-role">Docente</span>
+              <h3>Por completar</h3>
+              <p>Añadir nombre, grado académico y descripción del docente.</p>
+              <div class="docente-areas">
+                <span class="docente-area">Área de especialidad</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <p style="color:var(--gray-500);font-size:.87rem;margin-top:32px;padding:16px 20px;background:var(--gray-100);border-radius:var(--radius);border-left:3px solid var(--accent)">
+          <i class="fas fa-info-circle" style="color:var(--primary);margin-right:6px"></i>
+          Esta sección se actualiza con los datos reales del cuerpo docente de Educación Regular.
+        </p>
+      </div>
+
+      <!-- Tab: Educación Continua -->
+      <div class="tab-panel" id="tab-continua">
+        <div class="section-header">
+          <span class="section-label">Planta académica</span>
+          <h2>Docentes de Educación Continua</h2>
+          <p>Profesores y facilitadores que imparten talleres, diplomas breves y cursos de formación continua.</p>
+        </div>
+        <div class="docentes-grid">
+
+          <div class="docente-card">
+            <div class="docente-img"><i class="fas fa-user"></i></div>
+            <div class="docente-body">
+              <span class="docente-role">Facilitador/a</span>
+              <h3>Por completar</h3>
+              <p>Añadir nombre, especialidad y cursos que imparte en Educación Continua.</p>
+              <div class="docente-areas">
+                <span class="docente-area">Área de especialidad</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="docente-card">
+            <div class="docente-img"><i class="fas fa-user"></i></div>
+            <div class="docente-body">
+              <span class="docente-role">Facilitador/a</span>
+              <h3>Por completar</h3>
+              <p>Añadir nombre, especialidad y cursos que imparte en Educación Continua.</p>
+              <div class="docente-areas">
+                <span class="docente-area">Área de especialidad</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="docente-card">
+            <div class="docente-img"><i class="fas fa-user"></i></div>
+            <div class="docente-body">
+              <span class="docente-role">Facilitador/a</span>
+              <h3>Por completar</h3>
+              <p>Añadir nombre, especialidad y cursos que imparte en Educación Continua.</p>
+              <div class="docente-areas">
+                <span class="docente-area">Área de especialidad</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <p style="color:var(--gray-500);font-size:.87rem;margin-top:32px;padding:16px 20px;background:var(--gray-100);border-radius:var(--radius);border-left:3px solid var(--accent)">
+          <i class="fas fa-info-circle" style="color:var(--primary);margin-right:6px"></i>
+          Esta sección se actualiza con los datos reales del cuerpo docente de Educación Continua.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT CTA -->
+  <section class="contact-cta">
+    <div class="container">
+      <div class="contact-cta-inner">
+        <div>
+          <h2>¿Eres docente y quieres sumarte?</h2>
+          <p>Contáctanos si tienes interés en colaborar con la CTE Chile como docente o facilitador.</p>
+        </div>
+        <a href="contacto.html" class="btn btn-primary">
+          <i class="fas fa-paper-plane"></i> Escríbenos
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo logo">
+            <img src="https://ctedechile.cl/wp-content/uploads/2025/12/LOGO-CTE-HD-02.png" alt="CTE Chile" class="logo-img">
+          </div>
+          <p class="footer-desc">Institución cristiana de Educación Superior comprometida con la formación integral de líderes teológicos desde hace más de seis décadas.</p>
+          <div class="footer-socials">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4>Navegación</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="nosotros.html">Nosotros</a></li>
+            <li><a href="programas.html">Programas</a></li>
+            <li><a href="docentes.html">Cuerpo Docente</a></li>
+            <li><a href="horarios.html">Horarios</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Programas</h4>
+          <ul class="footer-links">
+            <li><a href="programas.html">Diplomado en Biblia</a></li>
+            <li><a href="programas.html">Diplomado en Teología</a></li>
+            <li><a href="programas.html">Bachillerato Ministerial</a></li>
+            <li><a href="programas.html">Bachillerato en Teología</a></li>
+            <li><a href="programas.html">Licenciatura en Teología</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contacto</h4>
+          <ul class="footer-contact">
+            <li><i class="fas fa-map-marker-alt"></i> Domeyko 1938 – 3º piso, Santiago</li>
+            <li><i class="fas fa-phone"></i> +56 9 9187 7514</li>
+            <li><i class="fas fa-envelope"></i> ctesantiago@ctedechile.cl</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Comunidad Teológica Evangélica de Chile. Todos los derechos reservados.</span>
+        <span>Propuesta de diseño alternativa</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    function switchTab(name, btn) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + name).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>

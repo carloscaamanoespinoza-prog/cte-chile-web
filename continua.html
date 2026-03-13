@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Educación Continua — CTE Chile</title>
+  <meta name="description" content="Talleres, diplomas breves y convenios de la Comunidad Teológica Evangélica de Chile para iglesias, comunidades y personas.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .continua-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .continua-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      transition: var(--transition);
+    }
+    .continua-card:hover {
+      box-shadow: var(--shadow);
+      border-color: var(--primary);
+      transform: translateY(-3px);
+    }
+    .continua-icon {
+      width: 52px;
+      height: 52px;
+      background: rgba(54,52,142,.08);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 18px;
+    }
+    .continua-card h3 { font-size: 1rem; margin-bottom: 8px; }
+    .continua-card p { font-size: .87rem; color: var(--gray-500); margin: 0; }
+    .convenio-card {
+      background: var(--gray-100);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      border: 1px solid var(--gray-200);
+      transition: var(--transition);
+    }
+    .convenio-card:hover { border-color: var(--primary); background: var(--white); box-shadow: var(--shadow-sm); }
+    .convenio-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--primary);
+      color: var(--white);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: .95rem;
+    }
+    .convenio-card h4 { font-size: .95rem; margin-bottom: 4px; }
+    .convenio-card p { font-size: .83rem; color: var(--gray-500); margin: 0; }
+    @media (max-width: 768px) {
+      .continua-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .continua-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="navbar-inner">
+        <a href="index.html" class="logo">
+          <img src="https://ctedechile.cl/wp-content/uploads/2025/12/LOGO-CTE-HD-02.png" alt="CTE Chile" class="logo-img">
+        </a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="programas.html">Ed. Regular</a></li>
+          <li><a href="continua.html" class="active">Ed. Continua</a></li>
+          <li><a href="docentes.html">Cuerpo Docente</a></li>
+          <li><a href="horarios.html">Horarios</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+          <li><a href="#" class="nav-cta"><i class="fas fa-graduation-cap"></i> Aula Virtual</a></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Inicio</a>
+        <span>/</span>
+        <span>Educación Continua</span>
+      </div>
+      <h1>Educación Continua</h1>
+      <p>Formación flexible para iglesias, comunidades y personas. Sin requisitos de ingreso al itinerario regular.</p>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="section">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-bottom:64px">
+        <div>
+          <span class="section-label">¿Qué es Educación Continua?</span>
+          <h2 style="margin-top:8px">Formación teológica accesible y flexible</h2>
+          <p style="margin-top:16px">La Educación Continua de la CTE Chile está diseñada para quienes buscan formación teológica sin inscribirse en el itinerario regular. Es la puerta de entrada para iglesias, líderes comunitarios y cualquier persona interesada en crecer en su fe y conocimiento.</p>
+          <p>Nuestra oferta incluye talleres temáticos, diplomas breves certificados y convenios con instituciones y comunidades. Toda la programación es diseñada con flexibilidad de horarios y modalidades.</p>
+          <div style="display:flex;gap:12px;margin-top:24px;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:8px;font-size:.88rem;font-weight:600;color:var(--primary)">
+              <i class="fas fa-check-circle"></i> Sin requisitos previos
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:.88rem;font-weight:600;color:var(--primary)">
+              <i class="fas fa-check-circle"></i> Modalidad flexible
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:.88rem;font-weight:600;color:var(--primary)">
+              <i class="fas fa-check-circle"></i> Certificación institucional
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--gray-100);border-radius:var(--radius-lg);padding:36px">
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px">
+            <div class="contact-info-icon"><i class="fas fa-user"></i></div>
+            <div>
+              <p style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-500);margin:0">Responsable</p>
+              <p style="font-weight:700;color:var(--dark);margin:0">Cecilia Castillo Nanjari</p>
+              <p style="font-size:.82rem;color:var(--gray-500);margin:0">Decana de Educación Continua</p>
+            </div>
+          </div>
+          <p style="font-size:.87rem;color:var(--gray-500);margin-bottom:20px">Para consultas sobre talleres, diplomas breves y convenios institucionales, contáctanos directamente.</p>
+          <a href="contacto.html" class="btn btn-ghost" style="width:100%;justify-content:center">
+            <i class="fas fa-paper-plane"></i> Consultar disponibilidad
+          </a>
+        </div>
+      </div>
+
+      <!-- Talleres y diplomas breves -->
+      <div class="section-header">
+        <span class="section-label">Oferta formativa</span>
+        <h2>Talleres y Diplomas Breves</h2>
+        <p>Actividades académicas puntuales con certificación institucional, diseñadas para complementar la formación personal y ministerial.</p>
+      </div>
+      <div class="continua-grid" style="margin-bottom:64px">
+        <div class="continua-card">
+          <div class="continua-icon">📚</div>
+          <h3>Talleres Bíblicos</h3>
+          <p>Estudio de libros específicos de la Biblia, introducción al AT y NT, lectio divina académica y análisis de textos clave.</p>
+        </div>
+        <div class="continua-card">
+          <div class="continua-icon">🎤</div>
+          <h3>Seminarios Temáticos</h3>
+          <p>Género y teología, ecología y fe, diálogo interreligioso, teología pública, derechos humanos desde la perspectiva bíblica.</p>
+        </div>
+        <div class="continua-card">
+          <div class="continua-icon">📜</div>
+          <h3>Diplomas Breves</h3>
+          <p>Programas cortos certificados en áreas específicas: liderazgo, predicación, consejería, acompañamiento espiritual.</p>
+        </div>
+        <div class="continua-card">
+          <div class="continua-icon">🧠</div>
+          <h3>Consejería y Acompañamiento</h3>
+          <p>Formación práctica en consejería pastoral y acompañamiento espiritual para líderes y pastores.</p>
+        </div>
+        <div class="continua-card">
+          <div class="continua-icon">🌍</div>
+          <h3>Conferencias Anuales</h3>
+          <p>Encuentros académicos con invitados nacionales e internacionales, abiertos a toda la comunidad eclesial.</p>
+        </div>
+        <div class="continua-card">
+          <div class="continua-icon">💻</div>
+          <h3>Formación Online</h3>
+          <p>Cursos y talleres disponibles en el Aula Virtual para participar desde cualquier región del país sin desplazarse.</p>
+        </div>
+      </div>
+
+      <!-- Convenios -->
+      <div class="section-header">
+        <span class="section-label">Convenios institucionales</span>
+        <h2>Formación a medida para tu comunidad</h2>
+        <p>La CTE Chile establece convenios con iglesias y organizaciones para ofrecer programas de formación diseñados según las necesidades específicas de cada comunidad.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="convenio-card">
+          <div class="convenio-icon"><i class="fas fa-church"></i></div>
+          <div>
+            <h4>Convenios con Iglesias</h4>
+            <p>Programas formativos impartidos directamente en las iglesias asociadas, adaptados a sus contextos y calendarios de actividad ministerial.</p>
+          </div>
+        </div>
+        <div class="convenio-card">
+          <div class="convenio-icon"><i class="fas fa-handshake"></i></div>
+          <div>
+            <h4>Convenios con Organizaciones</h4>
+            <p>Acuerdos con organizaciones sociales, pastorales y académicas para formación teológica integrada a sus programas de trabajo comunitario.</p>
+          </div>
+        </div>
+        <div class="convenio-card">
+          <div class="convenio-icon"><i class="fas fa-users"></i></div>
+          <div>
+            <h4>Cursos Congregacionales</h4>
+            <p>Cursos diseñados para grupos de iglesias, impartidos presencialmente o en modalidad híbrida, con contenido adaptado a la congregación.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT CTA -->
+  <section class="contact-cta">
+    <div class="container">
+      <div class="contact-cta-inner">
+        <div>
+          <h2>¿Tu iglesia necesita formación teológica?</h2>
+          <p>Conversemos sobre un convenio o programa a medida para tu comunidad.</p>
+        </div>
+        <a href="contacto.html" class="btn btn-primary">
+          <i class="fas fa-paper-plane"></i> Escríbenos
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo logo">
+            <img src="https://ctedechile.cl/wp-content/uploads/2025/12/LOGO-CTE-HD-02.png" alt="CTE Chile" class="logo-img">
+          </div>
+          <p class="footer-desc">Institución cristiana de Educación Superior comprometida con la formación integral de líderes teológicos desde hace más de seis décadas.</p>
+          <div class="footer-socials">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4>Navegación</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="nosotros.html">Nosotros</a></li>
+            <li><a href="programas.html">Ed. Regular</a></li>
+            <li><a href="continua.html">Ed. Continua</a></li>
+            <li><a href="docentes.html">Cuerpo Docente</a></li>
+            <li><a href="horarios.html">Horarios</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Ed. Regular</h4>
+          <ul class="footer-links">
+            <li><a href="programas.html">Diplomado en Biblia</a></li>
+            <li><a href="programas.html">Diplomado en Teología</a></li>
+            <li><a href="programas.html">Bachillerato Ministerial</a></li>
+            <li><a href="programas.html">Bachillerato en Teología</a></li>
+            <li><a href="programas.html">Licenciatura en Teología</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contacto</h4>
+          <ul class="footer-contact">
+            <li><i class="fas fa-map-marker-alt"></i> Domeyko 1938 – 3º piso, Santiago</li>
+            <li><i class="fas fa-phone"></i> +56 9 9187 7514</li>
+            <li><i class="fas fa-envelope"></i> ctesantiago@ctedechile.cl</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Comunidad Teológica Evangélica de Chile. Todos los derechos reservados.</span>
+        <span>Propuesta de diseño alternativa</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
