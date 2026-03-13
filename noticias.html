@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noticias — CTE Chile</title>
+  <meta name="description" content="Últimas noticias, eventos y anuncios de la Comunidad Teológica Evangélica de Chile.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .news-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .news-card:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+    .news-card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,.3);
+      font-size: 3rem;
+    }
+    .news-card-img img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .news-card-body {
+      padding: 22px 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .news-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .news-cat {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: rgba(54,52,142,.08);
+      padding: 3px 10px;
+      border-radius: 99px;
+    }
+    .news-date {
+      font-size: .78rem;
+      color: var(--gray-500);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .news-card h3 {
+      font-size: 1rem;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .news-card p {
+      font-size: .87rem;
+      color: var(--gray-500);
+      flex: 1;
+      margin: 0;
+    }
+    .news-card-footer {
+      padding: 14px 24px;
+      border-top: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .news-read-more {
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+    .news-read-more:hover { gap: 10px; }
+    .news-featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .news-featured .news-card-img {
+      height: 100%;
+      min-height: 260px;
+      border-radius: 0;
+    }
+    .news-featured .news-card-body { padding: 36px; justify-content: center; }
+    .news-featured h3 { font-size: 1.3rem; }
+    @media (max-width: 1024px) { .news-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) {
+      .news-grid { grid-template-columns: 1fr; }
+      .news-featured { grid-template-columns: 1fr; }
+      .news-featured .news-card-img { min-height: 200px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="navbar-inner">
+        <a href="index.html" class="logo">
+          <img src="https://ctedechile.cl/wp-content/uploads/2025/12/LOGO-CTE-HD-02.png" alt="CTE Chile" class="logo-img">
+        </a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="programas.html">Ed. Regular</a></li>
+          <li><a href="continua.html">Ed. Continua</a></li>
+          <li><a href="docentes.html">Cuerpo Docente</a></li>
+          <li><a href="horarios.html">Horarios</a></li>
+          <li><a href="noticias.html" class="active">Noticias</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+          <li><a href="#" class="nav-cta"><i class="fas fa-graduation-cap"></i> Aula Virtual</a></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html">Inicio</a>
+        <span>/</span>
+        <span>Noticias</span>
+      </div>
+      <h1>Noticias y Eventos</h1>
+      <p>Mantente informado sobre las actividades, anuncios y novedades de la Comunidad Teológica Evangélica de Chile.</p>
+    </div>
+  </section>
+
+  <!-- NOTICIAS -->
+  <section class="section">
+    <div class="container">
+
+      <div class="news-grid">
+
+        <!-- Noticia destacada -->
+        <div class="news-card news-featured">
+          <div class="news-card-img">
+            <img src="https://ctedechile.cl/wp-content/uploads/2025/01/copia-Taller-Teologico-2025.png" alt="Tejedoras de la historia" onerror="this.parentElement.innerHTML='<i class=\'fas fa-newspaper\'></i>'">
+          </div>
+          <div class="news-card-body">
+            <div class="news-meta">
+              <span class="news-cat">Evento</span>
+              <span class="news-date"><i class="far fa-calendar"></i> 12 de marzo, 2026</span>
+            </div>
+            <h3>Tejedoras de la historia</h3>
+            <p>Celebración participativa y simbólica realizada en línea el 9 de marzo. Un encuentro de reflexión y memoria que convocó a la comunidad teológica en torno a las mujeres que han construido la historia de la fe.</p>
+            <a href="#" class="news-read-more" style="margin-top:20px">Leer más <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Noticia 2 -->
+        <div class="news-card">
+          <div class="news-card-img">
+            <i class="fas fa-newspaper"></i>
+          </div>
+          <div class="news-card-body">
+            <div class="news-meta">
+              <span class="news-cat">Anuncio</span>
+              <span class="news-date"><i class="far fa-calendar"></i> 3 de marzo, 2026</span>
+            </div>
+            <h3>Tejedoras de la historia — Convocatoria</h3>
+            <p>Convocatoria para el encuentro conmemorativo del 9 de marzo, una celebración participativa que reunió voces y memorias de mujeres en la historia de la iglesia evangélica latinoamericana.</p>
+          </div>
+          <div class="news-card-footer">
+            <span class="news-date"><i class="fas fa-tag"></i> Comunidad</span>
+            <a href="#" class="news-read-more">Leer más <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Noticia 3 — Diplomado -->
+        <div class="news-card">
+          <div class="news-card-img">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <div class="news-card-body">
+            <div class="news-meta">
+              <span class="news-cat" style="background:rgba(234,88,12,.1);color:#ea580c">Nuevo programa</span>
+              <span class="news-date"><i class="far fa-calendar"></i> 26 de enero, 2026</span>
+            </div>
+            <h3>Diplomado Latinoamericano y Caribeño en Teologías con Justicia de Género</h3>
+            <p>En convenio con la Universidad Academia de Humanismo Cristiano, la CTE Chile ofrece este diplomado de alcance regional para estudiantes de toda Latinoamérica y el Caribe.</p>
+          </div>
+          <div class="news-card-footer">
+            <span class="news-date"><i class="fas fa-tag"></i> Ed. Continua</span>
+            <a href="continua.html" class="news-read-more">Ver programa <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Noticia 4 — Placeholder -->
+        <div class="news-card">
+          <div class="news-card-img">
+            <i class="fas fa-newspaper"></i>
+          </div>
+          <div class="news-card-body">
+            <div class="news-meta">
+              <span class="news-cat">Institucional</span>
+              <span class="news-date"><i class="far fa-calendar"></i> Por publicar</span>
+            </div>
+            <h3>Próxima noticia institucional</h3>
+            <p>Esta tarjeta se reemplaza con la siguiente noticia o comunicado institucional que desees publicar.</p>
+          </div>
+          <div class="news-card-footer">
+            <span class="news-date"><i class="fas fa-tag"></i> CTE Chile</span>
+            <a href="#" class="news-read-more">Leer más <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT CTA -->
+  <section class="contact-cta">
+    <div class="container">
+      <div class="contact-cta-inner">
+        <div>
+          <h2>¿Quieres recibir nuestras noticias?</h2>
+          <p>Contáctanos y te mantenemos informado sobre actividades y nuevos programas.</p>
+        </div>
+        <a href="contacto.html" class="btn btn-primary">
+          <i class="fas fa-paper-plane"></i> Escríbenos
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo logo">
+            <img src="https://ctedechile.cl/wp-content/uploads/2025/12/LOGO-CTE-HD-02.png" alt="CTE Chile" class="logo-img">
+          </div>
+          <p class="footer-desc">Institución cristiana de Educación Superior comprometida con la formación integral de líderes teológicos desde hace más de seis décadas.</p>
+          <div class="footer-socials">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" aria-label="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4>Navegación</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="nosotros.html">Nosotros</a></li>
+            <li><a href="programas.html">Ed. Regular</a></li>
+            <li><a href="continua.html">Ed. Continua</a></li>
+            <li><a href="docentes.html">Cuerpo Docente</a></li>
+            <li><a href="horarios.html">Horarios</a></li>
+            <li><a href="noticias.html">Noticias</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Ed. Regular</h4>
+          <ul class="footer-links">
+            <li><a href="programas.html">Diplomado en Biblia</a></li>
+            <li><a href="programas.html">Diplomado en Teología</a></li>
+            <li><a href="programas.html">Bachillerato Ministerial</a></li>
+            <li><a href="programas.html">Bachillerato en Teología</a></li>
+            <li><a href="programas.html">Licenciatura en Teología</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contacto</h4>
+          <ul class="footer-contact">
+            <li><i class="fas fa-map-marker-alt"></i> Domeyko 1938 – 3º piso, Santiago</li>
+            <li><i class="fas fa-phone"></i> +56 9 9187 7514</li>
+            <li><i class="fas fa-envelope"></i> ctesantiago@ctedechile.cl</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Comunidad Teológica Evangélica de Chile. Todos los derechos reservados.</span>
+        <span>Propuesta de diseño alternativa</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
